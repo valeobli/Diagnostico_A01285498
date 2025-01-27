@@ -13,39 +13,35 @@ void Fraccion::simplificar() {
     }
 }
 
-
 Fraccion::Fraccion(int num, int den) {
     if (den == 0) {
-        cout << "no puede ser 0 el denominador" << endl;
+        cout << "El denominador no puede ser 0." << endl;
         denominador = 1;
+    } else {
+        if (num < 0 && den < 0) {
+            num = -num;
+            den = -den;
+        } else if (den < 0) {
+            num = -num;
+            den = -den;
+        }
+        numerador = num;
+        denominador = den;
+        simplificar();
     }
-    if (num < 0 && den < 0) {
-        num = -num; 
-        den = -den;
-    } else if (den < 0) {
-        num = -num; 
-        den = -den;
-    }
-    numerador = num;
-    denominador = den;
-    simplificar();
 }
 
+Fraccion Fraccion::operator+(const Fraccion& otra) const {
+    int num = numerador * otra.denominador + denominador * otra.numerador;
+    int den = denominador * otra.denominador;
+    return Fraccion(num, den);
+}
 
 Fraccion Fraccion::multiplicar(const Fraccion& otra) {
     int num = numerador * otra.numerador;
     int den = denominador * otra.denominador;
-    Fraccion resultado(num, den);
-    return resultado;
+    return Fraccion(num, den);
 }
-
-Fraccion Fraccion::sumar(const Fraccion& otra) {
-    int num = numerador * otra.denominador + denominador * otra.numerador;
-    int den = denominador * otra.denominador;
-    Fraccion resultado(num, den);
-    return resultado;
-}
-
 
 void Fraccion::imprimir() const {
     cout << numerador << " / " << denominador << endl;
